@@ -59,8 +59,7 @@ def create_starlette_app(mcp_server: FastMCP, *, debug: bool=False) -> Starlette
     
     async def handle_list_tools(request: Request) -> None:
         tools = await mcp_server.list_tools()
-        json_tools = [json.dumps(tool.__dict__) for tool in tools]
-        return JSONResponse(json_tools)
+        return JSONResponse([tool.__dict__ for tool in tools])
     
     return Starlette(
         debug=debug,
